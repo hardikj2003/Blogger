@@ -1,0 +1,62 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+</script>
+<script>
+    const searchForm = document.getElementById('searchForm');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults'); // Add this element to your HTML
+
+    searchForm.addEventListener('submit', async (event) => {
+        event.preventDefault(); 
+
+        const searchTerm = searchInput.value;
+
+        try {
+            const response = await fetch('/search?query=' + encodeURIComponent(searchTerm));
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const results = await response.json();
+            displaySearchResults(results);
+        } catch (error) {
+            console.error('Error:', error);
+            searchResults.innerHTML = '<p>An error occurred while searching. Please try again.</p>';
+        }
+    });
+
+    function displaySearchResults(results) {
+        searchResults.innerHTML = ''; // Clear previous results
+
+        if (results.length === 0) {
+            searchResults.innerHTML = '<p>No results found.</p>';
+            return;
+        }
+
+        const resultList = document.createElement('ul');
+        results.forEach(result => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+                <h3><a href="/blog/${result._id}">${result.title}</a></h3>
+                <p>${result.excerpt}</p>
+            `;
+            resultList.appendChild(listItem);
+        });
+
+        searchResults.appendChild(resultList);
+    }
+
+    // Quill editor initialization
+    var quill = new Quill('#editor', {
+        theme: 'snow' // Choose the theme (snow, bubble, etc.)
+    });
+
+    // Function to retrieve HTML content from Quill.js editor
+    function getQuillContent() {
+        return quill.root.innerHTML;
+    }
+
+    // Function to set HTML content to Quill.js editor for editing
+    function setQuillContent(htmlContent) {
+        quill.root.innerHTML = htmlContent;
+    }
+</script>
