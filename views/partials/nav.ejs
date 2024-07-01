@@ -3,49 +3,47 @@
     <div class="flex items-center justify-between h-16">
       <a href="/" class="flex-shrink-0 text-white font-bold text-2xl">Bloggit</a>
       
-      <div class="hidden md:block flex-grow px-4">
-        <div class="flex items-center justify-end space-x-4">
-          <a href="#" class="text-blue-200 hover:bg-blue-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Home</a>
+      <div class="hidden md:flex items-center space-x-4">
+        <a href="#" class="text-blue-200 hover:bg-blue-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Home</a>
+        
+        <% if (locals.user) { %>
+          <a href="/blog/add-new" class="text-blue-200 hover:bg-blue-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Add Blog</a>
           
-          <% if (locals.user) { %>
-            <a href="/blog/add-new" class="text-blue-200 hover:bg-blue-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Add Blog</a>
-            
-            <div class="relative">
-              <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-blue-200 hover:bg-blue-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center transition duration-150 ease-in-out" type="button">
-                <%= locals.user.fullName %>
-                <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-              </button>
-              
-              <!-- Dropdown menu -->
-              <div id="dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 z-10">
-                <a href="/user/<%-locals.user._id %>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100">
-                  <i class="fas fa-user mr-2"></i> Profile
-                </a>
-                <a href="/user/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100">
-                  <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                </a>
-              </div>
-            </div>
-            
-            <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
-          <% } else { %>
-            <a href="/user/signup" class="text-blue-200 hover:bg-blue-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Create Account</a>
-            <a href="/user/signin" class="text-blue-200 hover:bg-blue-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Sign in</a>
-          <% } %>
-          
-          <form action="/search" method="get" class="relative">
-            <input type="search" name="query" placeholder="Search" class="bg-blue-800 text-white placeholder-blue-300 rounded-full py-1 px-4 pr-8 focus:outline-none focus:ring-2 focus:ring-white" style="width: 200px;">
-            <button type="submit" class="absolute right-0 top-0 mt-1 mr-2">
-              <i class="fas fa-search text-blue-300"></i>
+          <div class="relative">
+            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-blue-200 hover:bg-blue-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center transition duration-150 ease-in-out" type="button">
+              <%= locals.user.fullName %>
+              <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
             </button>
-          </form>
-        </div>
+            
+            <!-- Dropdown menu -->
+            <div id="dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 z-10">
+              <a href="/user/<%-locals.user._id %>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100">
+                <i class="fas fa-user mr-2"></i> Profile
+              </a>
+              <a href="/user/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100">
+                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+              </a>
+            </div>
+          </div>
+          
+          <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
+        <% } else { %>
+          <a href="/user/signup" class="text-blue-200 hover:bg-blue-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Create Account</a>
+          <a href="/user/signin" class="text-blue-200 hover:bg-blue-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Sign in</a>
+        <% } %>
+        
+        <form action="/search" method="get" class="relative">
+          <input type="search" name="query" placeholder="Search" class="bg-blue-800 text-white placeholder-blue-300 rounded-full py-1 px-4 pr-8 focus:outline-none focus:ring-2 focus:ring-white" style="width: 200px;">
+          <button type="submit" class="absolute right-0 top-0 mt-1 mr-2">
+            <i class="fas fa-search text-blue-300"></i>
+          </button>
+        </form>
       </div>
       
       <div class="md:hidden">
-        <button type="button" class="text-blue-200 hover:text-white focus:outline-none focus:text-white">
+        <button id="mobile-menu-button" type="button" class="text-blue-200 hover:text-white focus:outline-none focus:text-white">
           <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
@@ -53,4 +51,32 @@
       </div>
     </div>
   </div>
+  
+  <!-- Mobile menu, show/hide based on menu state -->
+  <div id="mobile-menu" class="md:hidden hidden px-2 pt-2 pb-3 space-y-1 sm:px-3">
+    <a href="#" class="text-blue-200 hover:bg-blue-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition duration-150 ease-in-out">Home</a>
+    
+    <% if (locals.user) { %>
+      <a href="/blog/add-new" class="text-blue-200 hover:bg-blue-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition duration-150 ease-in-out">Add Blog</a>
+      <a href="/user/<%-locals.user._id %>" class="text-blue-200 hover:bg-blue-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition duration-150 ease-in-out">Profile</a>
+      <a href="/user/logout" class="text-blue-200 hover:bg-blue-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition duration-150 ease-in-out">Logout</a>
+    <% } else { %>
+      <a href="/user/signup" class="text-blue-200 hover:bg-blue-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition duration-150 ease-in-out">Create Account</a>
+      <a href="/user/signin" class="text-blue-200 hover:bg-blue-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition duration-150 ease-in-out">Sign in</a>
+    <% } %>
+    
+    <form action="/search" method="get" class="relative">
+      <input type="search" name="query" placeholder="Search" class="bg-blue-800 text-white placeholder-blue-300 rounded-full py-1 px-4 pr-8 focus:outline-none focus:ring-2 focus:ring-white" style="width: 100%;">
+      <button type="submit" class="absolute right-0 top-0 mt-1 mr-2">
+        <i class="fas fa-search text-blue-300"></i>
+      </button>
+    </form>
+  </div>
 </nav>
+
+<script>
+  document.getElementById('mobile-menu-button').addEventListener('click', function () {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('hidden');
+  });
+</script>
